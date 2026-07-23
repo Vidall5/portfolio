@@ -2,6 +2,7 @@
 window.PORTFOLIO_DATA = {
   domain: "vidall7x.com",
   ig: "https://www.instagram.com/httpsvidall7/",
+  whatsapp: "5521967199748",
   bio: "Desenvolvedor web 🇧🇷<br>Sites, web apps e sistemas sob medida.",
   cards: [
     { title: "FH Logística", url: "https://fhlogistica.com.br/" },

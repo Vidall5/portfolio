@@ -166,6 +166,10 @@
       <input type="url" id="ig" placeholder="https://www.instagram.com/seuuser/" />
     </div>
     <div class="field">
+      <label for="whatsapp">WhatsApp (só dígitos, com DDI+DDD, ex: 5521967199748)</label>
+      <input type="text" id="whatsapp" placeholder="5521967199748" />
+    </div>
+    <div class="field">
       <label for="bio">Bio (aceita &lt;br&gt; pra quebra de linha)</label>
       <textarea id="bio" placeholder="Desenvolvedor web 🇧🇷&lt;br&gt;Sites, web apps e sistemas sob medida."></textarea>
     </div>
@@ -229,6 +233,7 @@
   const cardsEl = $('#cards');
   const domainEl = $('#domain');
   const igEl = $('#ig');
+  const waEl = $('#whatsapp');
   const bioEl = $('#bio');
   const statusEl = $('#status');
 
@@ -250,6 +255,7 @@
   function render(){
     domainEl.value = data.domain || '';
     igEl.value = data.ig || '';
+    waEl.value = data.whatsapp || '';
     bioEl.value = data.bio || '';
     cardsEl.innerHTML = '';
     data.cards.forEach((c, i) => {
@@ -303,6 +309,7 @@
 
   domainEl.addEventListener('input', () => { data.domain = domainEl.value.trim(); markDirty(); });
   igEl.addEventListener('input', () => { data.ig = igEl.value; markDirty(); });
+  waEl.addEventListener('input', () => { data.whatsapp = waEl.value.replace(/\D/g,''); markDirty(); });
   bioEl.addEventListener('input', () => { data.bio = bioEl.value; markDirty(); });
 
   $('#btnAdd').addEventListener('click', () => {
