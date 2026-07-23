@@ -97,9 +97,48 @@
     .card-row .actions{flex-direction:row;justify-content:flex-end}
     .save-bar{flex-direction:column;align-items:stretch}
   }
+
+  /* ---------- LOGIN ---------- */
+  body:not(.authed) .wrap{display:none}
+  .login{
+    position:fixed;inset:0;
+    display:none;flex-direction:column;align-items:center;justify-content:center;
+    padding:24px;background:var(--bg);
+  }
+  body:not(.authed) .login{display:flex}
+  .login__box{
+    width:100%;max-width:360px;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:32px 28px;
+  }
+  .login h1{font-size:20px;font-weight:700;margin-bottom:6px;text-align:center}
+  .login p{color:var(--muted);font-size:13px;margin-bottom:24px;text-align:center}
+  .login .field{margin-bottom:14px}
+  .login input{width:100%}
+  .login .err{color:var(--danger);font-size:12px;margin-top:8px;min-height:16px;text-align:center}
+  .login button{width:100%;margin-top:6px;padding:12px}
 </style>
 </head>
 <body>
+
+<div class="login">
+  <div class="login__box">
+    <h1>Admin</h1>
+    <p>Entre pra editar o portfólio.</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="user">Usuário</label>
+        <input type="text" id="user" autocomplete="username" autofocus />
+      </div>
+      <div class="field">
+        <label for="pw">Senha</label>
+        <input type="password" id="pw" autocomplete="current-password" />
+      </div>
+      <div class="err" id="loginErr"></div>
+      <button class="btn primary" type="submit">Entrar</button>
+    </form>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -112,6 +151,7 @@
       <button class="btn" id="btnImport">Importar JSON</button>
       <input type="file" id="importFile" accept="application/json" hidden />
       <button class="btn danger" id="btnReset">Resetar</button>
+      <button class="btn ghost" id="btnLogout">Sair</button>
     </div>
   </header>
 
@@ -146,6 +186,39 @@
   </div>
 
 </div>
+
+<script>
+  // ---------- LOGIN GATE ----------
+  const USER = "vidal";
+  const PW_SHA256 = "8c3f397348639b6a738f27bd2517195d27255675953ceba84163e7437c7f521b";
+
+  async function sha256(s){
+    const buf = new TextEncoder().encode(s);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  if(sessionStorage.getItem('portfolio_admin_auth') === '1'){
+    document.body.classList.add('authed');
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const u = document.getElementById('user').value.trim().toLowerCase();
+    const p = document.getElementById('pw').value;
+    const errEl = document.getElementById('loginErr');
+    errEl.textContent = '';
+    if(u !== USER){ errEl.textContent = 'Usuário ou senha inválidos.'; return; }
+    const h = await sha256(p);
+    if(h === PW_SHA256){
+      sessionStorage.setItem('portfolio_admin_auth','1');
+      document.body.classList.add('authed');
+    } else {
+      errEl.textContent = 'Usuário ou senha inválidos.';
+      document.getElementById('pw').value = '';
+    }
+  });
+</script>
 
 <script>
   const DEFAULT_DATA = window.PORTFOLIO_DATA || {
@@ -290,6 +363,11 @@
       }catch(err){ alert('Arquivo inválido: '+err.message); }
     };
     reader.readAsText(file);
+  });
+
+  $('#btnLogout').addEventListener('click', () => {
+    sessionStorage.removeItem('portfolio_admin_auth');
+    location.reload();
   });
 
   render();
