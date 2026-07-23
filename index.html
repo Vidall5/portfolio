@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#000000" />
+<title>Vidal — Portfólio</title>
+<meta name="description" content="Portfólio de sites e projetos web desenvolvidos por Vidal." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Preconnect nos projetos: DNS + TLS já resolvidos antes do clique -->
+<link rel="preconnect" href="https://fhlogistica.com.br" />
+<link rel="preconnect" href="https://www.copiuz.com" />
+<link rel="preconnect" href="https://www.systemkemy.com.br" />
+<link rel="preconnect" href="https://kemycrm.lovable.app" />
+<link rel="preconnect" href="https://tds.topdigitais.net" />
+<link rel="dns-prefetch" href="https://fhlogistica.com.br" />
+<link rel="dns-prefetch" href="https://www.copiuz.com" />
+<link rel="dns-prefetch" href="https://www.systemkemy.com.br" />
+<link rel="dns-prefetch" href="https://kemycrm.lovable.app" />
+<link rel="dns-prefetch" href="https://tds.topdigitais.net" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="data.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --card-w:576px;
+    --pad:24px;
+    --muted:rgba(255,255,255,.72);
+    --line:rgba(255,255,255,.12);
+  }
+  html{background:#000;color-scheme:dark}
+  body{color:#fff;font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- LOADER FULLSCREEN ---------- */
+  .loader{
+    position:fixed;inset:0;background:#000;
+    display:flex;align-items:center;justify-content:center;
+    z-index:100;padding:32px;
+    animation:loaderOut .8s ease 6.5s forwards;
+  }
+  .loader svg{width:100%;max-width:800px;height:auto;overflow:visible}
+  .loader text{
+    font-family:'Inter',system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;
+    fill:transparent;stroke:#fff;stroke-width:1.2;
+    stroke-linecap:round;stroke-linejoin:round;
+    text-anchor:middle;opacity:0;
+  }
+  .t1{font-size:96px;stroke-dasharray:800;stroke-dashoffset:800;animation:phrase 3s ease-in-out forwards}
+  .t2{font-size:56px;stroke-dasharray:1800;stroke-dashoffset:1800;animation:phraseLast 3s ease-in-out 3s forwards}
+
+  @keyframes phrase{
+    0%{stroke-dashoffset:2000;fill:transparent;opacity:1}
+    50%{stroke-dashoffset:0;fill:transparent;opacity:1}
+    65%{stroke-dashoffset:0;fill:#fff;opacity:1}
+    85%{stroke-dashoffset:0;fill:#fff;opacity:1}
+    100%{opacity:0}
+  }
+  @keyframes phraseLast{
+    0%{stroke-dashoffset:2000;fill:transparent;opacity:1}
+    60%{stroke-dashoffset:0;fill:transparent;opacity:1}
+    80%,100%{stroke-dashoffset:0;fill:#fff;opacity:1}
+  }
+  @keyframes loaderOut{to{opacity:0;visibility:hidden}}
+
+  /* ---------- BACKGROUND BORRADO ---------- */
+  .page-bg{
+    position:fixed;inset:-10%;
+    background-image:url("vidal.jpg");
+    background-size:cover;
+    background-position:center;
+    filter:blur(60px) saturate(1.2);
+    opacity:.45;z-index:0;
+  }
+
+  /* ---------- CARTÃO CENTRAL ---------- */
+  .card{
+    position:relative;z-index:1;
+    width:min(100%,var(--card-w));
+    margin:0 auto;
+    min-height:100vh;
+    background:#000;
+    opacity:0;animation:pageIn .8s ease 6.9s forwards;
+  }
+  @keyframes pageIn{to{opacity:1}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;aspect-ratio:1/1;overflow:hidden;background:#000}
+  .hero__img{
+    width:100%;height:100%;
+    object-fit:cover;object-position:50% 50%;
+    display:block;
+    opacity:.85;
+    filter:saturate(.9) contrast(.95);
+  }
+  .hero__fade{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,.35) 0%, transparent 25%, rgba(0,0,0,.55) 62%, #000 96%);
+  }
+  .hero__content{
+    position:absolute;inset:auto 0 0;
+    padding:0 var(--pad) 16px;text-align:center;
+  }
+  .name{
+    font-size:32px;font-weight:750;letter-spacing:.25px;line-height:40px;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .handle{font-size:14px;font-weight:500;color:var(--muted);margin-top:2px}
+
+  /* ---------- CORPO ---------- */
+  .body{padding:14px var(--pad) 30px}
+
+  .socials{display:flex;justify-content:center;gap:24px;margin:16px 0 18px}
+  .socials__btn{
+    display:grid;place-items:center;
+    color:rgba(255,255,255,.82);
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .socials__btn:hover{opacity:.6;transform:translateY(-1px)}
+  .socials__btn svg{width:22px;height:22px}
+
+  .bio{text-align:center;font-size:15px;line-height:1.5;margin:6px 0 18px;color:rgba(255,255,255,.9)}
+
+  .section-title{text-align:center;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:14px 0 12px}
+
+  /* ---------- LINKS ---------- */
+  .links{display:grid;gap:11px}
+  .link{
+    position:relative;isolation:isolate;overflow:hidden;
+    display:flex;align-items:center;gap:14px;
+    min-height:90px;padding:16px 18px;
+    border:1px solid var(--line);border-radius:14px;
+    color:#fff;transition:transform .15s ease, border-color .15s ease;
+  }
+  .link:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.3)}
+  .link__bg{
+    position:absolute;inset:0;z-index:-2;
+    width:100%;height:100%;
+    object-fit:cover;object-position:top center;
+    background:#111;
+  }
+  .link::after{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(90deg, rgba(0,0,0,.88) 42%, rgba(0,0,0,.55) 100%);
+  }
+
+  .link__content{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .link__title{font-size:18px;font-weight:800;letter-spacing:.2px;line-height:1.15}
+  .link__content small{font-size:13px;color:var(--muted)}
+  .link__arrow{width:20px;height:20px;flex:none;margin-left:auto;color:rgba(255,255,255,.55)}
+
+  /* ---------- FOOTER ---------- */
+  .footer{
+    margin-top:26px;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    font-size:12px;color:rgba(255,255,255,.5);
+  }
+  .footer__copy{color:rgba(255,255,255,.4)}
+  .footer__domain{color:rgba(255,255,255,.72);font-size:13px;font-weight:600;letter-spacing:.02em;text-decoration:none}
+  .footer__domain:hover{color:#fff}
+
+  @media (max-width:420px){
+    :root{--pad:16px}
+    .name{font-size:28px;line-height:34px}
+    .link__title{font-size:17px}
+    .hero__img .initial{font-size:140px}
+  }
+  @media (max-width:600px){
+    .t1{font-size:180px;stroke-width:2}
+    .t2{font-size:90px;stroke-width:2}
+    .loader{padding:20px}
+  }
+  /* ---------- MODAL DE PREVIEW ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(8px);
+    display:none;
+    flex-direction:column;
+    padding:16px;
+  }
+  .modal.is-open{display:flex}
+  .modal__bar{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 4px 14px;
+    color:#fff;
+  }
+  .modal__title{
+    font-size:14px;font-weight:600;
+    flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    color:rgba(255,255,255,.9);
+  }
+  .modal__title small{color:rgba(255,255,255,.55);font-weight:400;margin-left:6px;font-size:12px}
+  .modal__btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 12px;border-radius:999px;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.15);
+    color:#fff;font-size:13px;cursor:pointer;
+    transition:background .15s ease;
+  }
+  .modal__btn:hover{background:rgba(255,255,255,.18)}
+  .modal__btn svg{width:14px;height:14px}
+  .modal__frame-wrap{
+    flex:1;position:relative;
+    border-radius:12px;overflow:hidden;
+    background:#fff;
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
+  }
+  .modal__frame{
+    width:100%;height:100%;border:0;display:block;
+  }
+  .modal__loading{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    color:#888;font-size:13px;
+    background:#f5f5f5;
+    pointer-events:none;
+  }
+  .modal.is-loaded .modal__loading{display:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .loader{display:none}
+    .card{opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <svg viewBox="0 0 800 200" aria-label="Olá. Seja bem-vindo.">
+    <text class="t1" x="400" y="120">Olá.</text>
+    <text class="t2" x="400" y="115">Seja bem-vindo.</text>
+  </svg>
+</div>
+
+<!-- FUNDO BORRADO -->
+<div class="page-bg"></div>
+
+<!-- CARTÃO -->
+<main class="card">
+
+  <section class="hero">
+    <img class="hero__img" src="vidal.jpg" alt="Vidal" />
+    <div class="hero__fade"></div>
+  </section>
+
+  <section class="body">
+
+    <nav class="socials" aria-label="Redes sociais">
+      <a class="socials__btn" id="igLink" href="https://www.instagram.com/httpsvidall7/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+    </nav>
+
+    <p class="bio" id="bio">
+      Desenvolvedor web 🇧🇷<br>
+      Sites, web apps e sistemas sob medida.
+    </p>
+
+    <h2 class="section-title">Meus projetos</h2>
+
+    <div class="links" id="links"></div>
+
+    <footer class="footer">
+      <a class="footer__domain" id="domainLink" href="#" target="_blank" rel="noopener"></a>
+      <span class="footer__copy">© 2026 Vidal</span>
+    </footer>
+
+  </section>
+</main>
+
+<!-- MODAL DE PREVIEW -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog">
+  <div class="modal__bar">
+    <button class="modal__btn" id="modalClose" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      Voltar
+    </button>
+    <div class="modal__title" id="modalTitle"></div>
+    <a class="modal__btn" id="modalOpen" href="#" target="_blank" rel="noopener">
+      Abrir
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+  </div>
+  <div class="modal__frame-wrap">
+    <div class="modal__loading">Carregando…</div>
+    <iframe class="modal__frame" id="modalFrame" title="Preview" allow="fullscreen"></iframe>
+  </div>
+</div>
+
+<script>
+  // ============ DADOS EDITÁVEIS (localStorage) ============
+  // Fonte da verdade: data.js (comitado no repo)
+  // localStorage sobrepõe apenas nesta máquina, pra você preview antes de comitar
+  const REMOTE_DATA = window.PORTFOLIO_DATA || {};
+
+  function loadData(){
+    try{
+      const raw = localStorage.getItem('portfolio_data');
+      if(raw) return { ...REMOTE_DATA, ...JSON.parse(raw) };
+    }catch(e){}
+    return REMOTE_DATA;
+  }
+
+  function hostOf(url){
+    try{ return new URL(url).host.replace(/^www\./,''); }catch(e){ return url; }
+  }
+
+  function renderData(){
+    const d = loadData();
+    document.getElementById('igLink').href = d.ig;
+    document.getElementById('bio').innerHTML = d.bio;
+    const dom = document.getElementById('domainLink');
+    if(d.domain){
+      dom.textContent = d.domain;
+      dom.href = d.domain.startsWith('http') ? d.domain : ('https://' + d.domain);
+      dom.style.display = '';
+    } else { dom.style.display = 'none'; }
+    const list = document.getElementById('links');
+    list.innerHTML = d.cards.map(c => `
+      <a class="link" href="${c.url}" target="_blank" rel="noopener">
+        <img class="link__bg" src="https://image.thum.io/get/width/800/crop/600/${c.url}" alt="" loading="lazy" />
+        <span class="link__content">
+          <span class="link__title">${c.title}</span>
+          <small>${hostOf(c.url)}</small>
+        </span>
+        <svg class="link__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </a>`).join('');
+  }
+  renderData();
+
+  (function(){
+    const modal = document.getElementById('modal');
+    const frame = document.getElementById('modalFrame');
+    const title = document.getElementById('modalTitle');
+    const openBtn = document.getElementById('modalOpen');
+    const closeBtn = document.getElementById('modalClose');
+
+    // Cache de iframes ocultos por URL — pré-carrega no hover e reusa no clique
+    const preloadHost = document.createElement('div');
+    preloadHost.style.cssText = 'position:fixed;left:-9999px;top:0;width:1200px;height:800px;pointer-events:none;opacity:0';
+    document.body.appendChild(preloadHost);
+    const cache = new Map();
+
+    function preload(url){
+      if (cache.has(url)) return cache.get(url);
+      const f = document.createElement('iframe');
+      f.src = url;
+      f.style.cssText = 'width:100%;height:100%;border:0';
+      f.setAttribute('loading','eager');
+      preloadHost.appendChild(f);
+      const entry = { iframe:f, loaded:false };
+      f.addEventListener('load', () => { entry.loaded = true; });
+      cache.set(url, entry);
+      return entry;
+    }
+
+    document.querySelectorAll('.link[href^="http"]').forEach(a => {
+      const url = a.href;
+      // Pré-carrega ao pairar / tocar
+      const trigger = () => preload(url);
+      a.addEventListener('mouseenter', trigger, { once:true });
+      a.addEventListener('touchstart', trigger, { once:true, passive:true });
+      a.addEventListener('focus', trigger, { once:true });
+
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const name = a.querySelector('.link__title')?.textContent || '';
+        const host = a.querySelector('small')?.textContent || url;
+        title.innerHTML = name + ' <small>' + host + '</small>';
+        openBtn.href = url;
+
+        // Reusa o iframe pré-carregado, se existir
+        const entry = preload(url);
+        const wrap = document.querySelector('.modal__frame-wrap');
+        // Remove iframe visível anterior (mantém apenas o .modal__loading)
+        wrap.querySelectorAll('iframe.modal__frame').forEach(n => n.remove());
+        entry.iframe.className = 'modal__frame';
+        wrap.appendChild(entry.iframe);
+        if (entry.loaded) modal.classList.add('is-loaded');
+        else {
+          modal.classList.remove('is-loaded');
+          entry.iframe.addEventListener('load', () => modal.classList.add('is-loaded'), { once:true });
+        }
+
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function close(){
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      // Devolve o iframe ao cache oculto (mantém carregado pra próxima)
+      const wrap = document.querySelector('.modal__frame-wrap');
+      wrap.querySelectorAll('iframe.modal__frame').forEach(n => {
+        n.className = '';
+        preloadHost.appendChild(n);
+      });
+    }
+    closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+    modal.addEventListener('click', e => { if(e.target === modal) close(); });
+  })();
+</script>
+
+</body>
+</html>
