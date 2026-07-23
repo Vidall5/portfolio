@@ -26,12 +26,12 @@ window.PORTFOLIO_DATA = {
       "url": "https://www.globalpremiacoes.net/"
     },
     {
-      "title": "Kemy CRM",
-      "url": "https://kemycrm.lovable.app/"
-    },
-    {
       "title": "System Kemy",
       "url": "https://www.systemkemy.com.br/"
+    },
+    {
+      "title": "Kemy CRM",
+      "url": "https://kemycrm.lovable.app/"
     }
   ]
 };
